@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="11.0.0" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Extensions.Hosting.AsyncInitialization" Version="1.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql" Version="6.0.3" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+        <PackageReference Include="Saritasa.Tools.Common" Version="4.1.0" />
+        <PackageReference Include="Saritasa.Tools.Domain" Version="0.8.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\Sfu.Shop.Domain\Sfu.Shop.Domain.csproj" />
+      <ProjectReference Include="..\Sfu.Shop.Infrastructure.DataAccess\Sfu.Shop.Infrastructure.DataAccess.csproj" />
+      <ProjectReference Include="..\Sfu.Shop.Infrastructure\Sfu.Shop.Infrastructure.csproj" />
+      <ProjectReference Include="..\Sfu.Shop.UseCases.Common\Sfu.Shop.UseCases.Common.csproj" />
+      <ProjectReference Include="..\Sfu.Shop.UseCases\Sfu.Shop.UseCases.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Controllers" />
+    </ItemGroup>
+
+</Project>

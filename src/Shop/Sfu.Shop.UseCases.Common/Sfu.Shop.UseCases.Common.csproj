@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Sfu.Shop.Domain\Sfu.Shop.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Saritasa.Tools.Common" Version="4.1.0" />
+        <PackageReference Include="Saritasa.Tools.Domain" Version="0.8.2" />
+    </ItemGroup>
+</Project>
