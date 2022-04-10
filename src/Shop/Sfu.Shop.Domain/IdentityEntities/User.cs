@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using Sfu.Shop.Domain.Entities;
 
 namespace Sfu.Shop.Domain.IdentityEntities;
 
@@ -26,4 +27,9 @@ public class User : IdentityUser<Guid>
     /// Full name, concat of first name and last name.
     /// </summary>
     public string FullName => Saritasa.Tools.Common.Utils.StringUtils.JoinIgnoreEmpty(FirstName, LastName);
+    
+    /// <summary>
+    /// All feedback left by this user.
+    /// </summary>
+    public IEnumerable<Feedback> Feedbacks { get; init; }
 }
