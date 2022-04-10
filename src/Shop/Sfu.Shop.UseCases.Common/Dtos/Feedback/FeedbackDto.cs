@@ -1,28 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Sfu.Shop.Domain.IdentityEntities;
+﻿using Sfu.Shop.UseCases.Common.Dtos.User;
 
-namespace Sfu.Shop.Domain.Entities;
+namespace Sfu.Shop.UseCases.Common.Dtos.Feedback;
 
-/// <summary>
-/// Feedback entity.
-/// </summary>
-public record Feedback
+public record FeedbackDto
 {
     /// <summary>
     /// Id.
     /// </summary>
-    [Key]
     public Guid Id { get; init; }
     
     /// <summary>
     /// User that left feedback.
     /// </summary>
-    public User FeedbackUser { get; init; }
-    
-    /// <summary>
-    /// User that left feedback.
-    /// </summary>
-    public Guid FeedbackUserId { get; init; }
+    public UserDto FeedbackUser { get; init; }
     
     /// <summary>
     /// Test of the feedback.
@@ -32,13 +22,7 @@ public record Feedback
     /// <summary>
     /// Estimation.
     /// </summary>
-    [Range(1, 5)]
     public int Estimation { get; init; }
-    
-    /// <summary>
-    /// Product.
-    /// </summary>
-    public Product Product { get; init; }
     
     /// <summary>
     /// Product id.

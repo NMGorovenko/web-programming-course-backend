@@ -1,16 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Sfu.Shop.UseCases.Common.Dtos.User;
 
-namespace Sfu.Shop.Domain.Entities;
+namespace Sfu.Shop.UseCases.Common.Dtos.Products;
 
 /// <summary>
-/// Record entity.
+/// Dto for product.
 /// </summary>
-public record Product
+public record ProductDto()
 {
     /// <summary>
     /// Id.
     /// </summary>
-    [Key]
     public Guid Id { get; init; }
     
     /// <summary>
@@ -31,6 +30,10 @@ public record Product
     /// <summary>
     /// Feedback for these product.
     /// </summary>
-    public IEnumerable<Feedback> Feedback { get; init; }
+    public double FeedbackScore { get; init; }
     
+    /// <summary>
+    /// Amount feedbacks.
+    /// </summary>
+    public int AmountFeedbacks { get; init; }
 }

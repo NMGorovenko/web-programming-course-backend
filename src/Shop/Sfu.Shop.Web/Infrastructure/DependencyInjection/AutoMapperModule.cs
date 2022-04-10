@@ -1,4 +1,6 @@
-﻿namespace Sfu.Shop.Web.Infrastructure.DependencyInjection;
+﻿using Sfu.Shop.UseCases.Products;
+
+namespace Sfu.Shop.Web.Infrastructure.DependencyInjection;
 
 /// <summary>
 /// Register AutoMapper dependencies.
@@ -11,6 +13,6 @@ public class AutoMapperModule
     /// <param name="services">Services.</param>
     public static void Register(IServiceCollection services)
     {
-        // Automapper
+        services.AddAutoMapper(typeof(ProductsProfile).Assembly);
     }
 }

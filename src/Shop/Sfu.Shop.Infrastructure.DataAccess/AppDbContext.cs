@@ -11,17 +11,12 @@ public class AppDbContext : IdentityDbContext<User, AppIdentityRole, Guid>
     /// Products.
     /// </summary>
     public DbSet<Product> Products { get; set; }
-    
-    /// <summary>
-    /// Categories.
-    /// </summary>
-    public DbSet<Category> Categories { get; set; }
-    
+
     /// <summary>
     /// Feedbacks.
     /// </summary>
     public DbSet<Feedback> Feedbacks { get; set; }
-    
+
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -35,12 +30,7 @@ public class AppDbContext : IdentityDbContext<User, AppIdentityRole, Guid>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<Product>()
-            .HasOne(p => p.Category)
-            .WithMany(c => c.Products)
-            .HasForeignKey(p => p.CategoryId);
-
+        
         modelBuilder.Entity<Feedback>()
             .HasOne(f => f.Product)
             .WithMany(p => p.Feedback)

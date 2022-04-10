@@ -9,6 +9,7 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="11.0.0" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Bogus" Version="34.0.2" />
         <PackageReference Include="Extensions.Hosting.AsyncInitialization" Version="1.0.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.3" />
@@ -29,10 +30,6 @@
       <ProjectReference Include="..\Sfu.Shop.Infrastructure\Sfu.Shop.Infrastructure.csproj" />
       <ProjectReference Include="..\Sfu.Shop.UseCases.Common\Sfu.Shop.UseCases.Common.csproj" />
       <ProjectReference Include="..\Sfu.Shop.UseCases\Sfu.Shop.UseCases.csproj" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="Controllers" />
     </ItemGroup>
 
 </Project>

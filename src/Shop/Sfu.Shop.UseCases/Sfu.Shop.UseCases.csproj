@@ -7,6 +7,9 @@
     
     <ItemGroup>
       <ProjectReference Include="..\Sfu.Shop.Domain\Sfu.Shop.Domain.csproj" />
+      <ProjectReference Include="..\Sfu.Shop.Infrastructure.DataAccess\Sfu.Shop.Infrastructure.DataAccess.csproj" />
+      <ProjectReference Include="..\Sfu.Shop.Infrastructure\Sfu.Shop.Infrastructure.csproj" />
+      <ProjectReference Include="..\Sfu.Shop.UseCases.Common\Sfu.Shop.UseCases.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -15,6 +18,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
         <PackageReference Include="Saritasa.Tools.Common" Version="4.1.0" />
         <PackageReference Include="Saritasa.Tools.Domain" Version="0.8.2" />
+        <PackageReference Include="Saritasa.Tools.EFCore3" Version="0.8.1" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Sfu.Shop.UseCases.Products.GetProducts;
 
 namespace Sfu.Shop.Web.Infrastructure.DependencyInjection;
 
@@ -13,6 +14,6 @@ internal static class MediatRModule
     /// <param name="services">Services.</param>
     public static void Register(IServiceCollection services)
     {
-        // MediatR
+        services.AddMediatR(typeof(GetAllProductsQuery).Assembly);
     }
 }
