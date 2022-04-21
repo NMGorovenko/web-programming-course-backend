@@ -34,8 +34,8 @@ public class ProductController : ControllerBase
     /// <param name="pageSize">Page size.</param>
     /// <param name="cancellationToken">Cancelation token.</param>
     [HttpGet]
-    public async Task<IEnumerable<ProductDto>> Get(int page = 1, int pageSize = 20, CancellationToken cancellationToken = default) =>
-        await mediator.Send(new GetAllProductsQuery(page, pageSize), cancellationToken);
+    public async Task<PagedListMetadataDto<ProductDto>> Get(int page = 1, int pageSize = 20, CancellationToken cancellationToken = default) =>
+        (await mediator.Send(new GetAllProductsQuery(page, pageSize), cancellationToken)).ToMetadataObject();
 
     /// <summary>
     /// Get product by id.
