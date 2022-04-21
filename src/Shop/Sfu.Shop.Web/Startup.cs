@@ -33,7 +33,18 @@ public class Startup
             .AddJsonOptions(new JsonOptionsSetup().Setup);
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        
+
+        // CORS.
+        services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder
+                    .WithOrigins("http://localhost:3000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+            }));
+
         // Identity
         services.AddIdentity<User, AppIdentityRole>(options =>
             {
@@ -80,6 +91,11 @@ public class Startup
         app.UseRouting();
 
         app.UseHttpsRedirection();
+
+        app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:3000")
+        );
 
         app.UseAuthentication();
         app.UseAuthorization();

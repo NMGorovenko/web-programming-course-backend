@@ -43,7 +43,7 @@ public class Seeder
     {
         var product = new Product()
         {
-            ImageUrl = faker.Image.LoremPixelUrl(LoremPixelCategory.Food, 300, 200),
+            ImageUrl = "https://bugulma.1sota.ru/images/no_photo.png",
             Title = "Food " + faker.Random.Int(0, 10000),
             Price = faker.Random.Int(100, 100000),
             Feedback = GenerateFeedback()
@@ -63,11 +63,27 @@ public class Seeder
             {
                 FeedbackUser = Users[userNumber],
                 Text = faker.Lorem.Sentence(),
-                Estimation = faker.Random.Int(1, 6),
+                Estimation = GenerateFeedbackScore(),
                 CreatedAt = faker.Date.Past().ToUniversalTime()
             });
         }
 
         return feedbacks;
+    }
+
+
+    private int GenerateFeedbackScore()
+    {
+        var listScores = new List<int>()
+        {
+            1, 1, 1,
+            2, 2, 2, 2, 2,
+            3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+            4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+            5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+        };
+        var random = new Random();
+
+        return listScores[random.Next(listScores.Count)];
     }
 }
