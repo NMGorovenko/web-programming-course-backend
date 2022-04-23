@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Sfu.Shop.Infrastructure.Abstractions.Interfaces;
 using Sfu.Shop.Web.Infrastructure.Web;
 
 namespace Sfu.Shop.Web.Infrastructure.DependencyInjection;
@@ -15,5 +16,6 @@ internal static class SystemModule
     public static void Register(IServiceCollection services)
     {
         services.AddSingleton<IJsonHelper, SystemTextJsonHelper>();
+        services.AddScoped<ILoggedUserAccessor, LoggedUserAccessor>();
     }
 }

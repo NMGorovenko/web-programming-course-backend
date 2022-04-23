@@ -45,7 +45,7 @@ public class Seeder
         {
             ImageUrl = "https://bugulma.1sota.ru/images/no_photo.png",
             Title = "Food " + faker.Random.Int(0, 10000),
-            Price = faker.Random.Int(100, 100000),
+            Price = faker.Random.Int(10, 1000),
             Feedback = GenerateFeedback()
         };
 

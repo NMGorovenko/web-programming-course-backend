@@ -6,6 +6,11 @@
 public record UserDto
 {
     /// <summary>
+    /// Id.
+    /// </summary>
+    public Guid? Id { get; init; }
+    
+    /// <summary>
     /// First name.
     /// </summary>
     public string FirstName { get; init; }
