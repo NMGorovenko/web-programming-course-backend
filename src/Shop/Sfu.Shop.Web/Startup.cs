@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using Sfu.Shop.Domain.IdentityEntities;
 using Sfu.Shop.Infrastructure.DataAccess;
 using Sfu.Shop.Web.Infrastructure.Middlewares;
@@ -34,16 +35,23 @@ public class Startup
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.LoginPath = new PathString("/Auth/Login");
+            options.AccessDeniedPath = new PathString($"/Auth/AccessDenied");
+            options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+            options.Cookie.HttpOnly = true;
+            options.Cookie.Name = "CookieAuth";
+
+            options.Cookie.SameSite = SameSiteMode.None;
+        });
+
         // CORS.
-        services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder =>
-            {
-                builder
-                    .WithOrigins("http://localhost:3000")
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials();
-            }));
+        string[] frontendOrigin = null;
+        services.AddCors(new CorsOptionsSetup(
+            environment.IsDevelopment(),
+            frontendOrigin
+        ).Setup);
 
         // Identity
         services.AddIdentity<User, AppIdentityRole>(options =>
@@ -82,6 +90,8 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        app.UseCookiePolicy();
+
         app.UseStaticFiles();
         
         // Custom middlewares.
@@ -92,9 +102,11 @@ public class Startup
 
         app.UseHttpsRedirection();
 
-        app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyHeader()
+        app.UseCors(builder => builder
+            .AllowAnyHeader()
             .AllowAnyMethod()
-            .WithOrigins("http://localhost:3000")
+            .SetIsOriginAllowed(_ => true)
+            .AllowCredentials()
         );
 
         app.UseAuthentication();

@@ -41,7 +41,6 @@ public class AuthController : ControllerBase
     [HttpGet]
     public async Task<UserDto> GetMe(CancellationToken cancellationToken)
     {
-        
         return await mediator.Send(new GetMeQuery(), cancellationToken);
     }
 }
