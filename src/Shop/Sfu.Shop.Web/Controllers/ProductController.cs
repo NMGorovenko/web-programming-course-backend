@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saritasa.Tools.Common.Pagination;
 using Sfu.Shop.UseCases.Common.Dtos.Feedback;
 using Sfu.Shop.UseCases.Common.Dtos.Products;
+using Sfu.Shop.UseCases.Feedback.AddFeedbackForProduct;
 using Sfu.Shop.UseCases.Feedback.GetFeedbacksForProduct;
 using Sfu.Shop.UseCases.Products.GetProductById;
 using Sfu.Shop.UseCases.Products.GetProducts;
@@ -55,6 +57,18 @@ public class ProductController : ControllerBase
     /// <param name="cancellationToken">Cancelation token.</param>
     /// <returns></returns>
     [HttpGet("{productId}/feedbacks")]
-    public async Task<PagedList<FeedbackDto>> GetFeedbacks(Guid productId, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default) => 
+    public async Task<PagedListMetadataDto<FeedbackDto>> GetFeedbacks(Guid productId, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default) => 
         await mediator.Send(new GetFeedbacksForProductQuery(productId, page, pageSize), cancellationToken);
+
+
+
+    /// <summary>
+    /// Add feedback to product.
+    /// </summary>
+    [Authorize]
+    [HttpPost("{productId}/feedbacks")]
+    public async Task AddFeedback(AddFeedbackForProductCommand model, CancellationToken cancellationToken) =>
+        await mediator.Send(model, cancellationToken);
+
+
 }
