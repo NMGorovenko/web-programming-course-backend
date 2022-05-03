@@ -1,6 +1,4 @@
-﻿using Sfu.Shop.UseCases.Common.Dtos.User;
-
-namespace Sfu.Shop.UseCases.Common.Dtos.Products;
+﻿namespace Sfu.Shop.UseCases.Common.Dtos.Products;
 
 /// <summary>
 /// Dto for product.

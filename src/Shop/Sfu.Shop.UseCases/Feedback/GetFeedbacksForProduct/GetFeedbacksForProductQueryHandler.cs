@@ -1,13 +1,10 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Saritasa.Tools.Common.Pagination;
 using Saritasa.Tools.EFCore.Pagination;
 using Sfu.Shop.Infrastructure.DataAccess;
 using Sfu.Shop.UseCases.Common.Dtos.Feedback;
-using Sfu.Shop.UseCases.Common.Dtos.Products;
-using Sfu.Shop.UseCases.Products.GetProducts;
 
 namespace Sfu.Shop.UseCases.Feedback.GetFeedbacksForProduct;
 

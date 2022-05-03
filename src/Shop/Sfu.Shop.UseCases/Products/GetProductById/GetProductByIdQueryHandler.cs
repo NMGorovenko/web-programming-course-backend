@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Saritasa.Tools.EFCore;
 using Sfu.Shop.Infrastructure.DataAccess;
-using Sfu.Shop.UseCases.Common.Dtos;
 using Sfu.Shop.UseCases.Common.Dtos.Products;
 
 namespace Sfu.Shop.UseCases.Products.GetProductById;

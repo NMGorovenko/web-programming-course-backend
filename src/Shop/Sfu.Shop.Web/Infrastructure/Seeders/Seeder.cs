@@ -1,7 +1,5 @@
 ﻿using Bogus;
-using Bogus.DataSets;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Sfu.Shop.Domain.Entities;
 using Sfu.Shop.Domain.IdentityEntities;
 using Sfu.Shop.Infrastructure.DataAccess;

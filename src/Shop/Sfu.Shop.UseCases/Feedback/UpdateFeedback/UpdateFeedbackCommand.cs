@@ -1,17 +1,16 @@
 ﻿using MediatR;
 
-namespace Sfu.Shop.UseCases.Feedback.AddFeedbackForProduct;
-
+namespace Sfu.Shop.UseCases.Feedback.UpdateFeedback;
 
 /// <summary>
-/// Add feedback for product command.
+/// Update feedback command.
 /// </summary>
-public record AddFeedbackForProductCommand : IRequest
+public record UpdateFeedbackCommand : IRequest
 {
     /// <summary>
     /// Product id.
     /// </summary>
-    public Guid ProductId { get; init; }
+    public Guid FeedbackId { get; init; }
     
     /// <summary>
     /// Text.

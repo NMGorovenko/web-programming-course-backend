@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Sfu.Shop.UseCases.Common.Dtos;
 using Sfu.Shop.UseCases.Common.Dtos.Products;
 
 namespace Sfu.Shop.UseCases.Products.GetProductById;

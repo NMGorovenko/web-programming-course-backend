@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Sfu.Shop.Domain.IdentityEntities;
 using Sfu.Shop.UseCases.Auth.GetMe;
 using Sfu.Shop.UseCases.Auth.Login;
 using Sfu.Shop.UseCases.Auth.Logout;

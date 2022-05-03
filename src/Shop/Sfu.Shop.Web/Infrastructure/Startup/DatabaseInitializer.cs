@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Extensions.Hosting.AsyncInitialization;
-using Sfu.Shop.Domain.Entities;
 using Sfu.Shop.Domain.IdentityEntities;
 using Sfu.Shop.Infrastructure.DataAccess;
 using Sfu.Shop.UseCases.Common.Identity;

@@ -60,8 +60,7 @@ public class ProductController : ControllerBase
     public async Task<PagedListMetadataDto<FeedbackDto>> GetFeedbacks(Guid productId, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default) => 
         await mediator.Send(new GetFeedbacksForProductQuery(productId, page, pageSize), cancellationToken);
 
-
-
+    
     /// <summary>
     /// Add feedback to product.
     /// </summary>

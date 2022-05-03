@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Saritasa.Tools.Common.Pagination;
 using Saritasa.Tools.EFCore.Pagination;
 using Sfu.Shop.Infrastructure.DataAccess;
-using Sfu.Shop.UseCases.Common.Dtos;
 using Sfu.Shop.UseCases.Common.Dtos.Products;
 
 namespace Sfu.Shop.UseCases.Products.GetProducts;
