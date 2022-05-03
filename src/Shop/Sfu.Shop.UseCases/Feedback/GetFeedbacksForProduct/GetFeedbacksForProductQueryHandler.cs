@@ -31,7 +31,7 @@ public class GetFeedbacksForProductQueryHandler : IRequestHandler<GetFeedbacksFo
         var feedbacks = mapper
             .ProjectTo<FeedbackDto>(dbContext.Feedbacks.AsNoTracking())
             .Where(feedback => feedback.ProductId == request.productId)
-            .OrderBy(p => p.CreatedAt);
+            .OrderByDescending(p => p.CreatedAt);
         var pagedProducts = await EFPagedListFactory.FromSourceAsync(feedbacks, request.page, request.pageSize, cancellationToken);
         
         return pagedProducts.ToMetadataObject();
