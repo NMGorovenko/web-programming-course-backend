@@ -10,4 +10,4 @@ namespace Sfu.Shop.UseCases.Feedback.GetFeedbacksForProduct;
 /// <param name="page">Page.</param>
 /// <param name="pageSize">Page size.</param>
 /// /// <param name="productId">Product id.</param>
-public record GetFeedbacksForProductQuery(Guid productId, int page, int pageSize) : IRequest<PagedList<FeedbackDto>>;
+public record GetFeedbacksForProductQuery(Guid productId, int page, int pageSize) : IRequest<PagedListMetadataDto<FeedbackDto>>;

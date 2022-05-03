@@ -55,6 +55,6 @@ public class ProductController : ControllerBase
     /// <param name="cancellationToken">Cancelation token.</param>
     /// <returns></returns>
     [HttpGet("{productId}/feedbacks")]
-    public async Task<PagedList<FeedbackDto>> GetFeedbacks(Guid productId, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default) => 
+    public async Task<PagedListMetadataDto<FeedbackDto>> GetFeedbacks(Guid productId, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default) =>
         await mediator.Send(new GetFeedbacksForProductQuery(productId, page, pageSize), cancellationToken);
 }

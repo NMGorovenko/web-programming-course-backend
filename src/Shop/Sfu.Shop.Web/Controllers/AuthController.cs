@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sfu.Shop.Domain.IdentityEntities;
 using Sfu.Shop.UseCases.Auth.GetMe;
 using Sfu.Shop.UseCases.Auth.Login;
+using Sfu.Shop.UseCases.Auth.Logout;
 using Sfu.Shop.UseCases.Common.Dtos.User;
 
 namespace Sfu.Shop.Web.Controllers;
@@ -42,5 +43,11 @@ public class AuthController : ControllerBase
     public async Task<UserDto> GetMe(CancellationToken cancellationToken)
     {
         return await mediator.Send(new GetMeQuery(), cancellationToken);
+    }
+
+    [HttpDelete]
+    public async Task Logout(CancellationToken cancellationToken)
+    {
+        await mediator.Send(new LogoutCommand(), cancellationToken);
     }
 }

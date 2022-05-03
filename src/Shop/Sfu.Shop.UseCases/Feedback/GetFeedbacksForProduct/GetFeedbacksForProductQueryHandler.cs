@@ -11,7 +11,7 @@ using Sfu.Shop.UseCases.Products.GetProducts;
 
 namespace Sfu.Shop.UseCases.Feedback.GetFeedbacksForProduct;
 
-public class GetFeedbacksForProductQueryHandler : IRequestHandler<GetFeedbacksForProductQuery, PagedList<FeedbackDto>>
+public class GetFeedbacksForProductQueryHandler : IRequestHandler<GetFeedbacksForProductQuery, PagedListMetadataDto<FeedbackDto>>
 {
     private readonly AppDbContext dbContext;
     private readonly IMapper mapper;
@@ -26,7 +26,7 @@ public class GetFeedbacksForProductQueryHandler : IRequestHandler<GetFeedbacksFo
     }
 
     /// <inheritdoc />
-    public async Task<PagedList<FeedbackDto>> Handle(GetFeedbacksForProductQuery request, CancellationToken cancellationToken)
+    public async Task<PagedListMetadataDto<FeedbackDto>> Handle(GetFeedbacksForProductQuery request, CancellationToken cancellationToken)
     {
         var feedbacks = mapper
             .ProjectTo<FeedbackDto>(dbContext.Feedbacks.AsNoTracking())
@@ -34,6 +34,6 @@ public class GetFeedbacksForProductQueryHandler : IRequestHandler<GetFeedbacksFo
             .OrderBy(p => p.CreatedAt);
         var pagedProducts = await EFPagedListFactory.FromSourceAsync(feedbacks, request.page, request.pageSize, cancellationToken);
         
-        return pagedProducts;
+        return pagedProducts.ToMetadataObject();
     }
 }
