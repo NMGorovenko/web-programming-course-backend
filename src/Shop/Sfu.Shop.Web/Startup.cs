@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sfu.Shop.Domain.IdentityEntities;
 using Sfu.Shop.Infrastructure.DataAccess;
+using Sfu.Shop.Web.Hubs;
 using Sfu.Shop.Web.Infrastructure.Middlewares;
 using Sfu.Shop.Web.Infrastructure.Startup;
 
@@ -116,6 +117,7 @@ public class Startup
         {
             endpoints.MapDefaultControllerRoute();
             endpoints.MapControllers();
+            endpoints.MapHub<ChatHub>("/api/hub/chat");
         });
     }
 }
