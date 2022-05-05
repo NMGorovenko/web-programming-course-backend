@@ -14,6 +14,6 @@ internal static class ApplicationModule
     public static void Register(IServiceCollection services, IConfiguration configuration)
 #pragma warning restore CA1801 // Review unused parameters
     {
-        // TODO: Add dependencies.
+        services.AddSignalR();
     }
 }
