@@ -14,7 +14,8 @@ public class ChatProfile : Profile
     /// </summary>
     public ChatProfile()
     {
-        CreateMap<Message, MessageDto>();
+        CreateMap<Message, DetailedMessageDto>();
         CreateMap<ChatRoom, ChatRoomDto>();
+        CreateMap<Message, DetailedMessageDto>();
     }
 }

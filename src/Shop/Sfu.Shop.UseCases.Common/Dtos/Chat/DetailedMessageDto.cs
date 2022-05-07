@@ -2,7 +2,7 @@
 
 namespace Sfu.Shop.UseCases.Common.Dtos.Chat;
 
-public record MessageDto
+public record DetailedMessageDto
 {
     /// <summary>
     /// Id.
