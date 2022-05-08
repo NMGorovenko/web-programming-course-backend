@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using Sfu.Shop.Domain.Chat;
 using Sfu.Shop.Domain.Entities;
 
 namespace Sfu.Shop.Domain.IdentityEntities;
@@ -32,4 +33,9 @@ public class User : IdentityUser<Guid>
     /// All feedback left by this user.
     /// </summary>
     public IEnumerable<Feedback> Feedbacks { get; init; }
+    
+    /// <summary>
+    /// Chat Subscriptions.
+    /// </summary>
+    public IList<ChatRoom> Subscriptions { get; init; }
 }

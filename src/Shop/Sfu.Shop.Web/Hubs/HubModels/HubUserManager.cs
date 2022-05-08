@@ -1,27 +1,27 @@
 ﻿using Sfu.Shop.UseCases.Common.Dtos.User;
 
-namespace Sfu.Shop.Web.Hubs;
+namespace Sfu.Shop.Web.Hubs.HubModels;
 
 /// <summary>
 /// Chat user manager.
 /// </summary>
-public class ChatUserManager
+public class HubUserManager
 {
-    private List<ChatUser> ConnectedUsers { get; } = new();
+    private List<HubUser> ConnectedUsers { get; } = new();
     
     /// <summary>
     /// Connect user to chat.
     /// </summary>
     public void ConnectUser(UserDto user, string connectionId)
     {
-        var userAlreadyExists = GetConnectedUserByUserId(user.Id!.Value);
+        var userAlreadyExists = GetConnectedUserByUserId(user.Id);
         if (userAlreadyExists != null)
         {
             userAlreadyExists.AppendConnection(connectionId);
             return;
         }
 
-        var chatUser = new ChatUser(user);
+        var chatUser = new HubUser(user);
         chatUser.AppendConnection(connectionId);
         ConnectedUsers.Add(chatUser);
     }
@@ -40,12 +40,12 @@ public class ChatUserManager
             return false;
         }
 
-        if (!userExists.Connections.Any())
+        if (!userExists.ChatConnections.Any())
         {
             return false;
         }
 
-        var connectionExists = userExists.Connections
+        var connectionExists = userExists.ChatConnections
             .Select(x => x.ConnectionId)
             .First()
             .Equals(connectionId);
@@ -55,7 +55,7 @@ public class ChatUserManager
             return false;
         }
 
-        if (userExists.Connections.Count() == 1)
+        if (userExists.ChatConnections.Count() == 1)
         {
             ConnectedUsers.Remove(userExists);
             return true;
@@ -67,21 +67,35 @@ public class ChatUserManager
     }
     
     /// <summary>
-    /// Returns <see cref="ChatUser"/> by connectionId if connection found
+    /// Returns <see cref="HubUser"/> by connectionId if connection found
     /// </summary>
     /// <param name="connectionId"></param>
     /// <returns></returns>
-    public ChatUser? GetConnectedUserByConnectionId(string connectionId) =>
+    public HubUser? GetConnectedUserByConnectionId(string connectionId) =>
         ConnectedUsers
-            .FirstOrDefault(x => x.Connections.Select(c => c.ConnectionId)
+            .FirstOrDefault(x => x.ChatConnections.Select(c => c.ConnectionId)
                 .Contains(connectionId));
     
     /// <summary>
-    /// Returns <see cref="ChatUser"/> by userId.
+    /// Returns <see cref="HubUser"/> by userId.
     /// </summary>
     /// <param name="userId">User Id.</param>
     /// <returns>ChatUser?.</returns>
-    private ChatUser? GetConnectedUserByUserId(Guid userId) =>
+    public HubUser? GetConnectedUserByUserId(Guid userId) =>
         ConnectedUsers.
             FirstOrDefault(x => userId.CompareTo(x.User.Id) == 0);
+    
+    
+    /// <summary>
+    /// Get users in by group name.
+    /// </summary>
+    /// <param name="groupName">Group name.</param>
+    /// <returns>User in group.</returns>
+    public IEnumerable<UserDto> GetUsersByGroupName(string groupName)
+    {
+        var usersInGroup = ConnectedUsers.Where(user =>
+            user.ChatConnections.Any(connection => connection.GroupNames.Any(name => name.Equals(groupName))))
+            .Select(hubuser => hubuser.User);
+        return usersInGroup;
+    }
 }

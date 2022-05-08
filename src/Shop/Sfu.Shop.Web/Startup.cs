@@ -118,6 +118,7 @@ public class Startup
             endpoints.MapDefaultControllerRoute();
             endpoints.MapControllers();
             endpoints.MapHub<ChatHub>("/api/hub/chat");
+            endpoints.MapHub<NotificationHub>("/api/hub/notifications");
         });
     }
 }

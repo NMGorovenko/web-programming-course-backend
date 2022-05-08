@@ -48,5 +48,5 @@ public record ChatRoom
     /// <summary>
     /// Followers.
     /// </summary>
-    public IEnumerable<User> Followers { get; init; }
+    public IList<User> Followers { get; init; }
 }

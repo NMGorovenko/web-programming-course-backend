@@ -3,26 +3,34 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Sfu.Shop.UseCases.Auth.GetMe;
+using Sfu.Shop.UseCases.Chat.GetAllSubscribedRoomByUserId;
 using Sfu.Shop.UseCases.Chat.GetChatRoom;
 using Sfu.Shop.UseCases.Chat.GetMessage;
 using Sfu.Shop.UseCases.Chat.SaveMessage;
+using Sfu.Shop.UseCases.Chat.SubscribeToRoom;
 using Sfu.Shop.UseCases.Common.Dtos.Chat;
+using Sfu.Shop.Web.Hubs.HubModels;
 using Sfu.Shop.Web.Models;
 
 namespace Sfu.Shop.Web.Hubs;
 
+/// <summary>
+/// Chat hub.
+/// </summary>
 public class ChatHub : Hub
 {
     private readonly IMediator mediator;
-    private readonly ChatUserManager chatUserManager;
+    private readonly HubUserManager hubUserManager;
+    private readonly IHubContext<NotificationHub> notificationHub;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ChatHub(IMediator mediator, ChatUserManager chatUserManager)
+    public ChatHub(IMediator mediator, HubUserManager hubUserManager, IHubContext<NotificationHub> notificationHub)
     {
         this.mediator = mediator;
-        this.chatUserManager = chatUserManager;
+        this.hubUserManager = hubUserManager;
+        this.notificationHub = notificationHub;
     }
     
     /// <summary>
@@ -39,6 +47,13 @@ public class ChatHub : Hub
 
         var savedMessage = await mediator.Send(new GetMessageByIdQuery(savedMessageId), CancellationToken.None);
         await Clients.Group(savedMessage.ChatRoomId.ToString()).SendAsync("Receive", savedMessage);
+
+        var usersInChat = hubUserManager.GetUsersByGroupName(savedMessage.ChatRoomId.ToString());
+        var followers =
+            (await mediator.Send(new GetChatRoomByIdQuery(savedMessage.ChatRoomId), CancellationToken.None)).Followers;
+        var usersToNotify = followers.Except(usersInChat);
+        
+        await notificationHub.Clients.Users(usersToNotify.Select(user=>user.Id.ToString())).SendAsync("ReceiveNotify", "You are get new message");
     }
     
     /// <summary>
@@ -52,8 +67,8 @@ public class ChatHub : Hub
         
         await Groups.AddToGroupAsync(Context.ConnectionId, selectedChatRoom.Id.ToString());
         var connectionId = Context.ConnectionId;
-        var currentChatUser = chatUserManager.GetConnectedUserByConnectionId(connectionId);
-        currentChatUser?.AddToChatRoom(connectionId, chatRoom.ChatRoomId);
+        var currentChatUser = hubUserManager.GetConnectedUserByConnectionId(connectionId);
+        currentChatUser?.AddToGroup(connectionId, chatRoom.ChatRoomId);
         await Clients.OthersInGroup(selectedChatRoom.Id.ToString()).SendAsync("Notify", $"{user.FirstName} join in this channel");
     }
     
@@ -75,7 +90,7 @@ public class ChatHub : Hub
     {
         var user = await mediator.Send(new GetMeQuery(), CancellationToken.None);
         var connectionId = Context.ConnectionId;
-        chatUserManager.ConnectUser(user, connectionId);
+        hubUserManager.ConnectUser(user, connectionId);
         await base.OnConnectedAsync();
     }
 
@@ -83,17 +98,17 @@ public class ChatHub : Hub
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
         var connectionId = Context.ConnectionId;
-        var chatUser = chatUserManager.GetConnectedUserByConnectionId(connectionId);
-        var chatConnection = chatUser.Connections
+        var chatUser = hubUserManager.GetConnectedUserByConnectionId(connectionId);
+        var chatConnection = chatUser?.ChatConnections
             .FirstOrDefault(connection => connection.ConnectionId == connectionId);
         
-        foreach (var groupName in chatConnection.GroupNames)
+        foreach (var groupName in chatConnection?.GroupNames ?? Array.Empty<string>())
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
             await Clients.OthersInGroup(groupName).SendAsync("Notify", $"{chatUser.User.FirstName} left from this channel");
         }
         
-        chatUserManager.DisconnectUser(connectionId);
+        hubUserManager.DisconnectUser(connectionId);
         await base.OnDisconnectedAsync(exception);
     }
 }

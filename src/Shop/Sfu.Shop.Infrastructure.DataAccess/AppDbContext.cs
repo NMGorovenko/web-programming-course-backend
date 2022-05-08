@@ -68,6 +68,10 @@ public class AppDbContext : IdentityDbContext<User, AppIdentityRole, Guid>
             .HasOne(m => m.CreatedBy)
             .WithMany()
             .HasForeignKey(m => m.CreatedById);
+
+        modelBuilder.Entity<ChatRoom>()
+            .HasMany(c => c.Followers)
+            .WithMany(u => u.Subscriptions);
     }
     
 }

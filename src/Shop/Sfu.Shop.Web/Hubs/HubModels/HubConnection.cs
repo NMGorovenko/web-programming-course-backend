@@ -1,9 +1,9 @@
-﻿namespace Sfu.Shop.Web.Hubs;
+﻿namespace Sfu.Shop.Web.Hubs.HubModels;
 
 /// <summary>
 /// User connection from some device.
 /// </summary>
-public record ChatConnection
+public record HubConnection
 {
     /// <summary>
     /// Registered at time

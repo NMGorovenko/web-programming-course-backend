@@ -8,7 +8,7 @@ public record UserDto
     /// <summary>
     /// Id.
     /// </summary>
-    public Guid? Id { get; init; }
+    public Guid Id { get; init; }
     
     /// <summary>
     /// First name.

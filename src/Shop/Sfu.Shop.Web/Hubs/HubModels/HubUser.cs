@@ -1,20 +1,19 @@
-﻿using Sfu.Shop.UseCases.Common.Dtos.Chat;
-using Sfu.Shop.UseCases.Common.Dtos.User;
+﻿using Sfu.Shop.UseCases.Common.Dtos.User;
 
-namespace Sfu.Shop.Web.Hubs;
+namespace Sfu.Shop.Web.Hubs.HubModels;
 
 /// <summary>
 /// User connected to the chat
 /// </summary>
-public class ChatUser
+public class HubUser
 {
-    private readonly List<ChatConnection> connections;
-    private readonly List<Guid> chatRoomIds;
+    private readonly List<HubConnection> chatConnections;
     
+
     /// <summary>
-    /// All user connections.
+    /// All user connections to chat hubs.
     /// </summary>
-    public IEnumerable<ChatConnection> Connections => connections;
+    public IEnumerable<HubConnection> ChatConnections => chatConnections;
 
     /// <summary>
     /// User identity name
@@ -24,11 +23,10 @@ public class ChatUser
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ChatUser(UserDto user)
+    public HubUser(UserDto user)
     {
         User = user ?? throw new ArgumentNullException(nameof(user));
-        connections = new ();
-        chatRoomIds = new();
+        chatConnections = new ();
     }
     
     /// <summary>
@@ -38,9 +36,9 @@ public class ChatUser
     {
         get
         {
-            if (connections.Any())
+            if (chatConnections.Any())
             {
-                return connections
+                return chatConnections
                     .OrderByDescending(x => x.ConnectedAt)
                     .Select(x => x.ConnectedAt)
                     .First();
@@ -61,13 +59,13 @@ public class ChatUser
             throw new ArgumentNullException(nameof(connectionId));
         }
 
-        var connection = new ChatConnection
+        var connection = new HubConnection
         {
             ConnectedAt = DateTime.UtcNow,
             ConnectionId = connectionId
         };
 
-        connections.Add(connection);
+        chatConnections.Add(connection);
     }
     
     /// <summary>
@@ -80,12 +78,12 @@ public class ChatUser
             throw new ArgumentNullException(nameof(connectionId));
         }
 
-        var connection = connections.SingleOrDefault(x => x.ConnectionId.Equals(connectionId));
+        var connection = chatConnections.SingleOrDefault(x => x.ConnectionId.Equals(connectionId));
         if (connection == null)
         {
             return;
         }
-        connections.Remove(connection);
+        chatConnections.Remove(connection);
     }
 
     /// <summary>
@@ -93,9 +91,9 @@ public class ChatUser
     /// </summary>
     /// <param name="connectionId">Connection Id.</param>
     /// <param name="chatRoomId">Chat room Id.</param>
-    public void AddToChatRoom(string connectionId, Guid chatRoomId)
+    public void AddToGroup(string connectionId, Guid chatRoomId)
     {
-        var connectionExists = connections
+        var connectionExists = chatConnections
             .FirstOrDefault(connection => connection.ConnectionId == connectionId);
 
         if (connectionExists == null)
