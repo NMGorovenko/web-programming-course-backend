@@ -29,7 +29,6 @@ public class ChatController : ControllerBase
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns></returns>
     [HttpGet]
-    [AllowAnonymous]
     public async Task<IEnumerable<ChatRoomDto>> GetAll(CancellationToken cancellationToken)
         => await mediator.Send(new GetAllChatRoomsQuery(), cancellationToken);
 

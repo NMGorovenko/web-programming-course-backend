@@ -1,4 +1,6 @@
-﻿namespace Sfu.Shop.Web.Infrastructure.DependencyInjection;
+﻿using Sfu.Shop.Web.Hubs;
+
+namespace Sfu.Shop.Web.Infrastructure.DependencyInjection;
 
 /// <summary>
 /// Application specific dependencies.
@@ -15,5 +17,6 @@ internal static class ApplicationModule
 #pragma warning restore CA1801 // Review unused parameters
     {
         services.AddSignalR();
+        services.AddSingleton<ChatUserManager>();
     }
 }
