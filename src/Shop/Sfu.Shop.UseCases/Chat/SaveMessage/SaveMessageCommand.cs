@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Sfu.Shop.Infrastructure.Abstractions.Interfaces;
-using Sfu.Shop.Infrastructure.DataAccess;
-using Sfu.Shop.UseCases.Common.Dtos.Chat;
+﻿using MediatR;
 
 namespace Sfu.Shop.UseCases.Chat.SaveMessage;
 

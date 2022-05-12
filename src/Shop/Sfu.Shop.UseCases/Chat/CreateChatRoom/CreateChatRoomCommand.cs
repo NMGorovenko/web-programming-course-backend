@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using MediatR;
+﻿using MediatR;
 
 namespace Sfu.Shop.UseCases.Chat.CreateChatRoom;
 

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Saritasa.Tools.EFCore;
-using Sfu.Shop.Infrastructure.Abstractions.Interfaces;
 using Sfu.Shop.Infrastructure.DataAccess;
 using Sfu.Shop.UseCases.Common.Dtos.Chat;
 

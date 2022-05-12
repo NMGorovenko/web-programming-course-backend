@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Saritasa.Tools.EFCore;
-using Sfu.Shop.Domain.IdentityEntities;
 using Sfu.Shop.Infrastructure.Abstractions.Interfaces;
 using Sfu.Shop.Infrastructure.DataAccess;
 

@@ -1,5 +1,4 @@
-﻿using Sfu.Shop.Web.Hubs;
-using Sfu.Shop.Web.Hubs.HubModels;
+﻿using Sfu.Shop.Web.Hubs.HubModels;
 
 namespace Sfu.Shop.Web.Infrastructure.DependencyInjection;
 

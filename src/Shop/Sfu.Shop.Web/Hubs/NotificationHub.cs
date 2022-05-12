@@ -1,11 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.SignalR;
-using Sfu.Shop.UseCases.Auth.GetMe;
-using Sfu.Shop.UseCases.Chat.GetAllSubscribedRoomByUserId;
-using Sfu.Shop.UseCases.Chat.SubscribeToRoom;
-using Sfu.Shop.UseCases.Common.Dtos.User;
-using Sfu.Shop.Web.Hubs.HubModels;
-using Sfu.Shop.Web.Models;
 
 namespace Sfu.Shop.Web.Hubs;
 

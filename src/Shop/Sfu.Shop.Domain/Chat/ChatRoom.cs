@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Sfu.Shop.Domain.IdentityEntities;
 
 namespace Sfu.Shop.Domain.Chat;

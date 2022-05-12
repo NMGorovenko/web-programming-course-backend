@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Sfu.Shop.Infrastructure.Abstractions.Interfaces;
 using Sfu.Shop.Infrastructure.DataAccess;
 using Sfu.Shop.UseCases.Common.Dtos.Chat;
 

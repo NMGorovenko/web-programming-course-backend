@@ -54,6 +54,12 @@ public class Startup
             frontendOrigin
         ).Setup);
 
+        // SPA.
+        services.AddSpaStaticFiles(opts =>
+        {
+            opts.RootPath = "wwwroot/app";
+        });
+        
         // Identity
         services.AddIdentity<User, AppIdentityRole>(options =>
             {
@@ -94,6 +100,11 @@ public class Startup
         app.UseCookiePolicy();
 
         app.UseStaticFiles();
+        app.UseSpaStaticFiles(new StaticFileOptions
+        {
+            // Serving ./well-known/apple-app-site-association
+            ServeUnknownFileTypes = true
+        });
         
         // Custom middlewares.
         app.UseMiddleware<ApiExceptionMiddleware>();
@@ -120,5 +131,8 @@ public class Startup
             endpoints.MapHub<ChatHub>("/api/hub/chat");
             endpoints.MapHub<NotificationHub>("/api/hub/notifications");
         });
+
+        app.UseSpa(spa => spa.Options.DefaultPage = "/index.html");
+
     }
 }
